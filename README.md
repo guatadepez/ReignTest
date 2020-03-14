@@ -17,12 +17,10 @@ This App use some estra libraries as:
 - SwipeRefreshLayout from AndroidX
 - RecyclerView from AndroidX
 
-And require Internet to work with.
-
-- Version 1.1
+Version 1.1
 
 - Implementation of Realm and deleted SQlite
-- added Dialog for user to know what can and cannot do according to InternetConnection.
+- added Toast messages for user to know what can and cannot do according to InternetConnection.
 
 *The App remeber what Stories you deleted, please if you delete all the Stories just erase the Data/Cache of the App.
 *Please, Remember that some new Smartphones has the right to keep data (like Databases) even if you delete the App, so 
