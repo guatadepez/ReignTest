@@ -2,6 +2,12 @@ package com.example.reigndevtest.Volley
 
 import org.json.JSONObject
 
+/**
+ *
+ * Created by: GuatadepeZ
+ * APIController: Used to control the calls that we use with Volley.
+ *
+ */
 class APIController constructor(serviceInjection: ServiceInterface): ServiceInterface {
     private val service: ServiceInterface = serviceInjection
 

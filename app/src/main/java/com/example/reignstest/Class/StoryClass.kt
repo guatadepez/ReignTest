@@ -1,5 +1,12 @@
 package com.example.reignstest.Class
 
+
+/**
+ * Created by: GuatadepeZ
+ * StoryClass: Story class
+ * */
+
+
 class StoryClass (
 
     var created_at: String,

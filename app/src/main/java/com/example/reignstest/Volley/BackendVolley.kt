@@ -11,6 +11,12 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
+/**
+ *
+ * Created by: GuatadepeZ
+ * BackendVolley: Custom Application that start Realm and handle Volley Queues
+ *
+ */
 
 class BackendVolley : Application() {
     override fun onCreate() {

@@ -1,27 +1,34 @@
 package com.example.reignstest.Adapter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.reigndevtest.Utils.checkInternetConnection
 import com.example.reigndevtest.Utils.inflate
 import com.example.reignstest.Activity.StoryDetailActivity
 import com.example.reignstest.Class.StoryClass
-import com.example.reignstest.Realm.StoryModel
+import com.example.reignstest.Realm.StoryRealm.StoryModel
 import io.realm.Realm
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.min
+
+/**
+ *
+ * Created by: GuatadepeZ
+ * StoryAdapter to manage the items of the recycler view,the viewHolder, the onItemClick and the remove Item from the list and the Database.
+ *
+ * */
+
 
 class StoryAdapter(private val mStoryClassList: MutableCollection<StoryClass>) : RecyclerView.Adapter<StoryAdapter.StoryHolder>() {
 
-    var mRealm = Realm.getDefaultInstance()
     var mStoryModel = StoryModel()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoryHolder {
-        val inflatedView = parent.inflate(com.example.reignstest.R.layout.card_view_test, false)
+        val inflatedView = parent.inflate(com.example.reignstest.R.layout.card_view_story, false)
         return StoryHolder(inflatedView)
     }
 
@@ -34,18 +41,32 @@ class StoryAdapter(private val mStoryClassList: MutableCollection<StoryClass>) :
         holder.bind(storyClass)
     }
 
-
+    /**
+     *
+     * remoteAt: function that is trigger whenever the User delete an Item.
+     * */
     fun removeAt(position: Int) {
-        mStoryModel.delStory(mRealm,mStoryClassList.elementAt(position).objectID)
+        mStoryModel.delStory(Realm.getDefaultInstance(),mStoryClassList.elementAt(position).objectID)
         mStoryClassList.remove(mStoryClassList.elementAt(position))
         notifyItemRemoved(position)
     }
 
+    /**
+     *
+     * update: Update the recycler view.
+     *
+     * */
     fun update(modelList:MutableCollection<StoryClass>){
+        mStoryClassList.clear()
         mStoryClassList.addAll(modelList)
         notifyDataSetChanged()
     }
 
+    /**
+     *
+     * ViewHolder.
+     *
+     * */
 
     class StoryHolder (v: View)  : RecyclerView.ViewHolder(v), View.OnClickListener{
 
@@ -69,16 +90,22 @@ class StoryAdapter(private val mStoryClassList: MutableCollection<StoryClass>) :
             )
 
             val currentDate = Calendar.getInstance().time
-            var asdf = getTimeDiff(date!!, currentDate)
+            val mDateDiff = getTimeDiff(date!!, currentDate)
 
-            var title : String? = storyClass.story_title
-            if(title != null) mTitleView?.text = title
+            val title : String? = storyClass.story_title
+            if(title != null && title != "") mTitleView?.text = title  //we use title or story_title
             else mTitleView?.text = storyClass.title
 
-            mDescView?.text = storyClass.author + " - " + asdf
+            mDescView?.text = storyClass.author + " - " + mDateDiff
             mUrlView = storyClass.story_url
 
         }
+
+        /**
+         *
+         * getTimeDiff: function to get the time differences between two dates. In this case returns the hour if it is greater than 0 else return the minutes.
+         *
+         * */
 
         private fun getTimeDiff(date1: Date, date2: Date): String {
 
@@ -91,16 +118,15 @@ class StoryAdapter(private val mStoryClassList: MutableCollection<StoryClass>) :
             return diff
         }
 
-        override fun onClick(v: View) {
+        override fun onClick(v: View) { //onclicklestener
             val context = itemView.context
-            Log.e("asdf",mUrlView)
-            val detailIntent = StoryDetailActivity.IncomingIntent(context, mTitleView!!.text.toString(),mUrlView)
-            context.startActivity(detailIntent)
+            if(checkInternetConnection(context)){ //if we have internet, we launch the webview
+                val detailIntent = StoryDetailActivity.incomingIntent(context, mTitleView!!.text.toString(),mUrlView)
+                context.startActivity(detailIntent)
+            }else{ //else we tell the user that he cannot open the webview without internet.
+                Toast.makeText(context,"No tienes internet, no puedes abrir la página web.",Toast.LENGTH_SHORT).show()
+            }
         }
     }
-
-
-
-
 
 }

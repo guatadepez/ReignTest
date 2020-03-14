@@ -8,13 +8,19 @@ import com.android.volley.VolleyLog
 import com.android.volley.toolbox.JsonObjectRequest
 import org.json.JSONObject
 
+/**
+ *
+ * Created by: GuatadepeZ
+ * ServiceVolley: Class that handle the responses from the request to the API.
+ *
+ */
+
 class ServiceVolley : ServiceInterface {
     val TAG = ServiceVolley::class.java.simpleName
-    val basePath = ""
 
     override fun get(path: String, params: JSONObject, completionHandler: (response: JSONObject?) -> Unit) {
         val jsonObjReq = object : JsonObjectRequest(
-            Request.Method.GET, basePath + path, params,
+            Request.Method.GET, path, params,
             Response.Listener<JSONObject> { response ->
                 Log.d(TAG, "/get request OK! Response: $response")
                 completionHandler(response)

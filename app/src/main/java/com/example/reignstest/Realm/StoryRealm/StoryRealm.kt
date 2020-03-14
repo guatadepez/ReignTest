@@ -1,7 +1,13 @@
-package com.example.reignstest.Realm
+package com.example.reignstest.Realm.StoryRealm
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
+
+/**
+ * Created by: GuatadepeZ
+ * StoryRealm: Story model in database for Realm.
+ * */
+
 
 open class StoryRealm(
     open var created_at: String = "",
@@ -40,5 +46,20 @@ open class StoryRealm(
 //        _tags: String = this._tags,
         objectID: String = this.objectID)
 //        _highlightResult: String = this._highlightResult)
-            = StoryRealm(created_at, title, url, author,points,story_text,comment_text,num_comment,story_id,story_title,story_url,parent_id,created_at_i,objectID)
+            = StoryRealm(
+        created_at,
+        title,
+        url,
+        author,
+        points,
+        story_text,
+        comment_text,
+        num_comment,
+        story_id,
+        story_title,
+        story_url,
+        parent_id,
+        created_at_i,
+        objectID
+    )
 }

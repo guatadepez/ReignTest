@@ -7,13 +7,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+/**
+ *
+ * Created by: GuatadepeZ
+ * Extensions Utilities
+ *
+ */
+
+
+/**
+ *
+ * ViewGroup.inflate: fun used to inflate the card view from the Adapter.
+ *
+ * */
+
 fun ViewGroup.inflate(layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
 
-fun Date.formatTo(dateFormat: String, timeZone: TimeZone = TimeZone.getDefault()): String {
-    val formatter = SimpleDateFormat(dateFormat, Locale.getDefault())
-    formatter.timeZone = timeZone
-    return formatter.format(this)
-}
 

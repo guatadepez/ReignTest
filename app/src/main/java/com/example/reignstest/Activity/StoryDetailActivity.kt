@@ -8,6 +8,14 @@ import android.util.Log
 import android.webkit.WebView
 import com.example.reignstest.R
 
+
+/**
+ *
+ * Created by: GuatadepeZ
+ * StoryDetailActivity: Opened when the user clicks on and Item, it opens a WebView with the URL of the Story ONLY if the Phone has Internet connection.
+ *
+ * */
+
 class StoryDetailActivity : AppCompatActivity() {
 
 
@@ -16,11 +24,10 @@ class StoryDetailActivity : AppCompatActivity() {
 
         const val EXTRA_URL = "url"
         const val EXTRA_TUTLE = "title"
-        fun IncomingIntent(context: Context, title: String, url:String): Intent {
+        fun incomingIntent(context: Context, title: String, url:String): Intent {
             val detailIntent = Intent(context, StoryDetailActivity::class.java)
             detailIntent.putExtra(EXTRA_TUTLE, title)
             detailIntent.putExtra(EXTRA_URL, url)
-
             return detailIntent
         }
     }
@@ -31,10 +38,19 @@ class StoryDetailActivity : AppCompatActivity() {
         val title = intent.extras?.getString(EXTRA_TUTLE)
         val url = intent.extras?.getString(EXTRA_URL)
 
-        Log.e("asdf",title + ", "+ url)
+        //actionbar
+        val actionbar = supportActionBar
+        actionbar!!.title = title
+        actionbar.setDisplayHomeAsUpEnabled(true)
+        actionbar.setDisplayHomeAsUpEnabled(true)
 
-        setTitle(title)
         webView = findViewById(R.id.wv_storyDetail)
         webView.loadUrl(url)
+    }
+
+    //support for backButton on top of the actionbar
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
