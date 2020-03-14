@@ -5,11 +5,24 @@ import android.text.TextUtils
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
+import io.realm.Realm
+import io.realm.RealmConfiguration
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+
+
 
 class BackendVolley : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        //Realm init
+        Realm.init(applicationContext)
+        val c = RealmConfiguration.Builder()
+        c.name("story")
+        c.deleteRealmIfMigrationNeeded()
+        Realm.setDefaultConfiguration(c.build())
     }
 
     val requestQueue: RequestQueue? = null

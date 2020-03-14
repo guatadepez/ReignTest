@@ -1,8 +1,11 @@
 apply plugin: 'com.android.application'
 
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 29
@@ -43,3 +46,4 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 
 }
+
